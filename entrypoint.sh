@@ -1,12 +1,10 @@
-#!/usr/bin/env bash
-#
-# This script will run inside your n8n Docker container
+#!/bin/sh
 
-# 1. Import credentials
+echo "📦 Importing credentials..."
 n8n import:credentials --input /data/credentials.json
 
-# 2. Import workflows
+echo "📦 Importing workflows..."
 n8n import:workflow --input /data/workflows.json
 
-# 3. Finally, start n8n
+echo "🚀 Starting n8n..."
 n8n start
