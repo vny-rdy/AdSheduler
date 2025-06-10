@@ -1,16 +1,15 @@
-# 1. Base image
+# Use the official n8n image
 FROM n8nio/n8n:latest
 
-# 2. Set working dir (n8n stores its DB/config under /home/node/.n8n or /data)
+# Set working directory
 WORKDIR /data
 
-# 3. Copy in your exported files and the script
-COPY credentials.json    /data/credentials.json
-COPY workflows.json      /data/workflows.json
-COPY entrypoint.sh       /data/entrypoint.sh
+# Copy exported data
+COPY credentials.json /data/credentials.json
+COPY workflows.json /data/workflows.json
 
-# 4. Make sure the script is executable
-RUN chmod +x /data/entrypoint.sh
+# Copy and set permissions before copying (done locally)
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# 5. Use the script as entrypoint
-ENTRYPOINT ["/data/entrypoint.sh"]
+# Use entrypoint directly
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
